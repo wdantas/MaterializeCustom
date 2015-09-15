@@ -2,7 +2,7 @@
 Customização do Framework MaterializeCSS
 
  - [Web Site: r2wsolucoes.com.br](http://r2wsolucoes.com.br)
- - [Repo: github.com/inuyaksa/jquery.nicescroll](https://github.com/wdantas/MaterializeCustom)
+ - [Repo: github.com/wdantas/MaterializeCustom](https://github.com/wdantas/MaterializeCustom)
  - [Linkeding: Wellington Dantas](https://br.linkedin.com/in/wndantas)
 
 #Implementações
