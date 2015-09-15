@@ -18,9 +18,9 @@ $(document).ready(function(){
 
 #FULL HEIGHT - 100%
 
-```
+```javascript
     $('div').fullHeight()
 ```
 
-# Plugins Adicionais
+#Plugins Adicionais
 - nicescroll
