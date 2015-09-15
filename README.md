@@ -20,7 +20,7 @@ $(document).ready(function(){
 
 ```
     $('div').fullHeight()
-´´´
+```
 
 # Plugins Adicionais
 - nicescroll
