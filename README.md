@@ -16,7 +16,7 @@ $(document).ready(function(){
 })
 ´´´
 
-##FULL HEIGHT - 100%
+#FULL HEIGHT - 100%
 
 ```
     $('div').fullHeight()
