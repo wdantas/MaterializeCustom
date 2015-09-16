@@ -22,10 +22,10 @@ Customização do Framework MaterializeCSS
 
 ## GOTO
 >Evento de ScrollTop animado
+
 ```javascript
     $('.example1').goTo()
     //<a href="#alvo">Link</a>
-
 
     $('.example1').goTo({
         attr : 'data-locate'
