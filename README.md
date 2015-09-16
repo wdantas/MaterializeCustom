@@ -22,4 +22,5 @@ Customização do Framework MaterializeCSS
 
 
 #Plugins Adicionais
-- nicescroll
+- [jquery](https://github.com/jquery/jquery)
+- [nicescroll](https://github.com/inuyaksa/jquery.nicescroll)
