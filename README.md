@@ -7,17 +7,18 @@ Customização do Framework MaterializeCSS
 
 #Implementações
 > Novas funções e como utilizar
-
-//Todas as chamativas devem ser feitas dentro de $(document).ready(function(){})
+> Todas as chamativas devem ser feitas dentro de $(document).ready(function(){})
 
 ```javascript
-
+    $(document).ready(function(){
+        //Seu código aqui
+    });
 ```
 
 ## FULL HEIGHT - 100%
-
 ```javascript
     $('div').fullHeight()
+```
 
 
 #Plugins Adicionais
