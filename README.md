@@ -20,6 +20,26 @@ Customização do Framework MaterializeCSS
     $('div').fullHeight()
 ```
 
+## GOTO
+>Evento de ScrollTop animado
+```javascript
+    $('.example1').goTo()
+    //<a href="#alvo">Link</a>
+
+
+    $('.example1').goTo({
+        attr : 'data-locate'
+    })
+    //<a href="http://example.com" data-locate=".class-alvo">Link</a>
+    //<a href="http://example.com" data-locate="#id-alvo">Link</a>
+
+    //Default Setting
+    //attr : 'href',
+    //easing :'easeOutQuart',
+    //delay :800,
+    //distanceTop : 0
+```
+
 
 #Plugins Adicionais
 - [jquery](https://github.com/jquery/jquery)

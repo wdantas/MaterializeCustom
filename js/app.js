@@ -1,5 +1,27 @@
 
 /* ==========================================================================
+   $GOTO
+    //Pega o parametro href do elemento clicado e move a tela até o id de acordo com o offset
+   ========================================================================== */
+$(function(){
+    $.fn.goTo =  function(options){  
+        
+        var defaultConfig = $.extend({
+            attr : 'href',
+            easing :'easeOutQuart',
+            delay :800,
+            distanceTop : 0
+        }, options)
+        
+        return this.click(function(e){
+            var destino = $(this).attr(defaultConfig.attr);
+            $('html,body').stop().animate({scrollTop: $(''+destino+'').offset().top - defaultConfig.distanceTop}, defaultConfig.delay, defaultConfig.easing)
+            e.preventDefault();
+        })
+    }
+})
+
+/* ==========================================================================
    $FULL HEIGHT
     //Faz com que o elemento alvo fique sempre com o atributo height 100% da altura da tela
    ========================================================================== */

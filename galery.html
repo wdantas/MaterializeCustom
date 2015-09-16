@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MaterializeCSS Custom</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/materialize.css">
+        <link rel="stylesheet" href="css/custom.css">
+        
+        <style>
+            .material-placeholder {float:left; margin:5px;}
+            .proximo{
+                width:120px;
+                height:120px;
+                background:#f00;
+                cursor:pointer;
+                position:fixed;
+                top:5px;
+                right:5px;
+                z-index:999999
+            }
+        </style>
+    </head>
+    <body>
+        <div class="proximo"></div>
+        <h1>Sem grupo</h1>
+        <div class="row">
+            <img class="materialboxed"  src="http://emagrecerdireito.com/wp-content/themes/emagrecer_direito/imagens/slide/cereal-898073_1280.jpg">
+        </div>
+        <h1>Com grupo</h1>
+        <div class="row">
+            <img class="materialboxed" data-group="teste" src="http://emagrecerdireito.com/wp-content/uploads/2015/09/kale-792988_1280-210x140.jpg">
+            <img class="materialboxed" data-group="teste" src="http://emagrecerdireito.com/wp-content/uploads/2015/09/diet-617756_1920-210x140.jpg">
+            <img class="materialboxed" data-group="teste" src="http://emagrecerdireito.com/wp-content/uploads/2015/09/tape-403593_1280-210x140.jpg">
+            <img class="materialboxed" data-group="teste" src="http://emagrecerdireito.com/wp-content/uploads/2015/09/perder-gordura-210x150.png">
+            <img class="materialboxed" data-group="teste" src="http://emagrecerdireito.com/wp-content/uploads/2015/09/diet-695723_12801-210x140.jpg">
+        </div>
+        <h1>Com grupo</h1>
+        <div class="row">
+            <img class="materialboxed" data-group="outro" src="http://emagrecerdireito.com/wp-content/uploads/2015/09/kale-792988_1280-210x140.jpg">
+            <img class="materialboxed" data-group="outro" src="http://emagrecerdireito.com/wp-content/uploads/2015/09/diet-617756_1920-210x140.jpg">
+            <img class="materialboxed" data-group="outro" src="http://emagrecerdireito.com/wp-content/uploads/2015/09/tape-403593_1280-210x140.jpg">
+        </div>
+        
+        <script src="js/jquery.js"></script>
+        <script src="js/materialize.js"></script>
+        <script src="js/app.js"></script>
+        <script>
+            $(document).ready(function(){                
+                $('.materialboxed').materialbox();
+            })
+        </script>
+    </body>
+</html>
