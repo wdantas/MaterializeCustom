@@ -13,9 +13,13 @@ Customização do Framework MaterializeCSS
 ```javascript
 $(document).ready(function(){
     Aqui Seu código
-})
-´´´
+});
 
+
+##FULL HEIGHT - 100%
+
+```javascript
+    $('div').fullHeight()
 
 
 #Plugins Adicionais
