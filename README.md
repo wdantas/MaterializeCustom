@@ -10,17 +10,13 @@ Customização do Framework MaterializeCSS
 
 //Todas as chamativas devem ser feitas dentro de $(document).ready(function(){})
 
-```
+```javascript
 $(document).ready(function(){
-    ///Seu código
+    Aqui Seu código
 })
 ´´´
 
-#FULL HEIGHT - 100%
 
-```javascript
-    $('div').fullHeight()
-```
 
 #Plugins Adicionais
 - nicescroll
