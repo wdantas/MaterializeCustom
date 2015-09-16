@@ -22,16 +22,17 @@ Customização do Framework MaterializeCSS
 
 ## GOTO
 >Evento de ScrollTop animado
+>Easings disponíveis [Jquery Easing](https://jqueryui.com/easing/)
 
 ```javascript
     $('.example1').goTo()
     //<a href="#alvo">Link</a>
 
-    $('.example1').goTo({
+    $('.example2').goTo({
         attr : 'data-locate'
     })
-    //<a href="http://example.com" data-locate=".class-alvo">Link</a>
-    //<a href="http://example.com" data-locate="#id-alvo">Link</a>
+    //<a class="example2" href="http://example.com" data-locate=".class-alvo">Link</a>
+    //<a class="example2" href="http://example.com" data-locate="#id-alvo">Link</a>
 
     //Default Setting
     //attr : 'href',
