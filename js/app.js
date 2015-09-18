@@ -1,5 +1,108 @@
 
 /* ==========================================================================
+   $AJAX SEND FORM
+    //Faz o envio de formulários sem a necessidade de recarregar a página
+   ========================================================================== */
+$(function(){
+    $.fn.ajaxSendForm =  function(options){  
+        var htmlNotification = "<div class=\"row box-notification-ajax hide\"><div class=\"notification-ajax-form col s12\">Html</div></div>";
+        var htmlPreloader = "<div class=\"progress box-progress hide\"><div class=\"indeterminate hide\"></div><div class=\"determinate hide\" style=\"width:100%\"></div></div>";
+        var actionForm = this.attr('action');
+        var nameForm = this.attr('name');
+        var formTarget = $('form[name='+nameForm+']');
+        var baseForm = "base-"+nameForm;
+        
+        var config = $.extend({
+            methodSend : 'POST',
+            notification : 'after',
+            notificationClass : '',
+            notificationAlignTxt : 'left',
+            notificarionMsgSuccess : 'Mensagem enviada com sucesso!',
+            notificarionMsgLoading :'Enviando...Aguarde...',
+            notificarionMsgError : 'Erro ao Enviar',
+            preloadTime: 2000,
+            alwayTime: 10000
+        }, options)
+        
+        this.wrap("<div class=\""+baseForm+"\"></div>");
+        
+        if(config.notification === 'after'){
+            this.after(htmlNotification);
+        }else{
+            this.before(htmlNotification);
+        }
+        
+        this.after(htmlPreloader);
+        
+        function notificationTxt(Text, Class, AlignText){
+            var notification = $('.'+baseForm+' .notification-ajax-form');
+            
+            notification.text(Text).addClass(Class+' '+config.notificationClass+' t-'+config.notificationAlignTxt);
+            removeHideClassShow('.'+baseForm+' .box-notification-ajax');
+        }
+        
+        function removeHideClassShow(Target){
+            $(Target).css('display','none').removeClass('hide').show()
+        }
+        
+        function blockedForm(){
+            var formHeight = formTarget.height()
+            formTarget.addClass('p-relative').animate({opacity: 0.5})
+            .append('<div class="p-absolute locked-form" style="left:0; top:0; width:100%; height:'+formHeight+'px"></div>')
+        }
+        
+        function unLockForm(){
+            formTarget.animate({opacity: 1})
+            formTarget.find('.locked-form').remove();
+        }
+        
+        function beforeSendForm(){
+            blockedForm()
+            notificationTxt(config.notificarionMsgLoading, 'loading', config.notificationAlignTxt);
+            $('.'+baseForm+' .notification-ajax-form').removeClass('error success');
+            $('.'+baseForm+' .box-progress, .'+baseForm+' .determinate').addClass('hide')
+            removeHideClassShow('.'+baseForm+' .box-progress, .'+baseForm+' .indeterminate')
+        }
+        
+        function removePreloader(Msg,Status){
+            setTimeout(function(){
+                notificationTxt(Msg, Status, config.notificationAlignTxt);
+                $('.'+baseForm+' .box-progress .indeterminate').css('display','none');
+                removeHideClassShow('.'+baseForm+' .box-progress .determinate');
+                unLockForm()
+            },config.preloadTime);
+        }
+        
+        return this.on('submit',function(e){
+            $.ajax({
+                url : actionForm,
+                method: config.methodSend,
+                data: $(this).serialize(),
+                beforeSend: beforeSendForm()
+            })
+            .done(function(data){
+                removePreloader(config.notificarionMsgSuccess,'success')
+            })
+            .fail(function(){
+                removePreloader(config.notificarionMsgError,'error')
+            })
+            .always(function(){
+                setTimeout(function(){$('.'+baseForm+' .box-notification-ajax, .'+baseForm+' .box-progress').hide('slow', function(){
+                    $(this).addClass('hide')
+                })}, (config.preloadTime + config.alwayTime))
+               
+            })
+            return false;
+        })
+        
+      
+    }
+})
+
+
+
+
+/* ==========================================================================
    $GOTO
     //Pega o parametro href do elemento clicado e move a tela até o id de acordo com o offset
    ========================================================================== */

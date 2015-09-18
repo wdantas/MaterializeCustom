@@ -4,6 +4,10 @@ Customização do Framework MaterializeCSS
  - [Web Site: r2wsolucoes.com.br](http://r2wsolucoes.com.br)
  - [Repo: github.com/wdantas/MaterializeCustom](https://github.com/wdantas/MaterializeCustom)
  - [Linkeding: Wellington Dantas](https://br.linkedin.com/in/wndantas)
+ - [Base: MaterializeCSS](http://materializecss.com/)
+ - [Repo: MaterializeCSS](https://github.com/Dogfalo/materialize)
+
+>ATENÇÃO! Não somos vinculados ao MaterializeCSS.com, apenas customizamos o framework disponibilizado, por que ele é sensacional!
 
 #Implementações
 > Novas funções e como utilizar
@@ -15,10 +19,45 @@ Customização do Framework MaterializeCSS
     });
 ```
 
+## AJAX SEND FORM
+>Envia formulários com AJAX, sem necessidade de recarregar a página
+>[Documentação AJAX](http://api.jquery.com/jquery.ajax/)
+
+```javascript
+    //<form name="example" action="send-form.php" method="post">
+    //  <input name="nome" placeholder="nome"><br>
+    //  <input name="email" placeholder="email"><br>
+    //  <input name="telefone" placeholder="telefone"><br>
+    //  <input type="submit" name="send" />
+    //</form>
+
+    $('form[name=example]').ajaxSendForm({
+        notification: 'before',
+        notificationAlignTxt :'center',
+        notificarionMsgSuccess : 'Recebemos sua mensagem, em breve retornaremos!',
+        notificarionMsgError : 'Desculpe, ocorrou um erro, tente novamente!'
+    });
+
+    //Default Setting
+    //methodSend : 'POST',
+    //notification : 'after', /*Ou 'before'*/
+    //notificationClass : '', /*Adiciona classes customizadas*/
+    //notificationAlignTxt : 'left', /*Define o alinhamento do texto 'left','center','right'*/
+    //notificarionMsgSuccess : 'Mensagem enviada com sucesso!', /*Mensagem de Success*/
+    //notificarionMsgLoading :'Enviando...Aguarde...', /*Mensagem Preloader*/
+    //notificarionMsgError : 'Erro ao Enviar', /*Mensagem Error*/
+    //preloadTime: 2000, /*Tempo de permanencia do preoader*/
+    //alwayTime: 10000 /*Tempo para as notificações sumirem da tela*/
+```
+
+
+
+
 ## FULL HEIGHT - 100%
 ```javascript
     $('div').fullHeight()
 ```
+
 
 ## GOTO
 >Evento de ScrollTop animado
