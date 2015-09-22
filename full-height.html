@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="css/custom.css">
     </head>
     <body>
-        <div class="test-height" style="background:yellow;">1</div>
+        <div class="test-min-height" style="background:yellow;">1</div>
         <div class="test-height" style="background:blue;">1</div>
         <div style="height:1800px; background:red;">1</div>
         <script src="js/jquery.js"></script>
@@ -16,7 +16,8 @@
         <script src="js/app.js"></script>
         <script>
             $(document).ready(function(){                
-                $('.test-height').fullHeight();
+                $('.test-min-height').fullHeight();
+                $('.test-height').fullHeight({property: 'height'});
             })
         </script>
     </body>

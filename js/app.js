@@ -129,9 +129,13 @@ $(function(){
     //Faz com que o elemento alvo fique sempre com o atributo height 100% da altura da tela
    ========================================================================== */
 $(function(){
-    $.fn.fullHeight =  function(){
+    $.fn.fullHeight =  function(options){
         var $this = this;
         var $window = $(window);
+        
+        var defaultConfig = $.extend({
+            property : 'min-height'
+        }, options);
         
         function getHeight(){
             
@@ -139,13 +143,20 @@ $(function(){
             return $windowH;
         }
         
-        $this.animate({'height':getHeight()})
+        function setHeight(){
+            if(defaultConfig.property == 'min-height'){
+                $this.stop().animate({'min-height' : getHeight()});
+            }else{
+                $this.stop().animate({'height' : getHeight()});
+            }
+        }
+
+       setHeight()
         
         $window.resize(function(){
-            $this.stop().animate({'height':getHeight()})
+            setHeight()
         })
-        
-        
+     
     }
 })
 /* ==========================================================================
