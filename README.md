@@ -54,7 +54,8 @@ Customização do Framework MaterializeCSS
 
 
 ## FULL HEIGHT - 100%
->>Para a funcionalidade valign funcionar, a altura deve ser height e não min-height para os navegadores mais desatualizados.
+>Para a funcionalidade valign funcionar, a altura deve ser height e não min-height para os navegadores mais desatualizados.
+
 ```javascript
     $('div').fullHeight() /*retorna <div style="min-height: n px"></div>*/
     $('div').fullHeight({property : 'height'}) /*retorna <div style="height: n px"></div>*/
