@@ -52,6 +52,20 @@ Customização do Framework MaterializeCSS
 
 
 
+##VERTICAL ALIGN FROM Ie 9 && 10
+>Corrigi o alinhamento vertical em alguns navegadores que não suportam o display flex
+>É necessário a utilização do Modernizr
+
+```javascript
+    if (!Modernizr.flexbox){
+        $('.valign-wrapper').verticalAlign();
+    } 
+
+    //get [Modernizr](https://modernizr.com/)
+    //<html class="no-js">
+```
+
+
 
 ## FULL HEIGHT - 100%
 >Para a funcionalidade valign funcionar, a altura deve ser height e não min-height para os navegadores mais desatualizados.
@@ -89,4 +103,5 @@ Customização do Framework MaterializeCSS
 
 #Plugins Adicionais
 - [jquery](https://github.com/jquery/jquery)
+- [Modernizr](https://modernizr.com/)
 - [nicescroll](https://github.com/inuyaksa/jquery.nicescroll)

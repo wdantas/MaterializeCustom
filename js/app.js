@@ -1,5 +1,35 @@
 
 /* ==========================================================================
+   $VERTICAL ALIGN for old browsers
+    //Corrige o alinhamento vertical para browsers que não suporta flexbox, utilizando padding
+   ========================================================================== */
+
+
+$(function(){
+    $.fn.verticalAlign = function(){
+        this.each(function(){
+            var $this = $(this);
+            var Valign = $this.find('.valign')
+            
+            function getPadding(){
+                var alturaWrapper = $this.height();     
+                var alturaValign = Valign.height();
+                var paddingValign = (alturaWrapper - alturaValign) / 2;
+                return paddingValign;
+            }
+                        
+            Valign.css({'padding': ''+getPadding()+'px 0px'})
+            
+            $(window).resize(function(){
+                Valign.css({'padding': ''+getPadding()+'px 0px'})    
+            })
+            
+        })        
+    }
+
+})
+
+/* ==========================================================================
    $AJAX SEND FORM
     //Faz o envio de formulários sem a necessidade de recarregar a página
    ========================================================================== */
@@ -84,10 +114,10 @@ $(function(){
                 removePreloader(config.notificarionMsgSuccess,'success')
             })
             .fail(function(){
-                removePreloader(config.notificarionMsgError,'error')
+                removePreloader(config.notificarionMsgError,'error');
             })
             .always(function(){
-                setTimeout(function(){$('.'+baseForm+' .box-notification-ajax, .'+baseForm+' .box-progress').hide('slow', function(){
+                var timeRemove = setTimeout(function(){$('.'+baseForm+' .box-notification-ajax, .'+baseForm+' .box-progress').hide('slow', function(){
                     $(this).addClass('hide')
                 })}, (config.preloadTime + config.alwayTime))
                
@@ -98,7 +128,6 @@ $(function(){
       
     }
 })
-
 
 
 
@@ -144,10 +173,12 @@ $(function(){
         }
         
         function setHeight(){
+            
             if(defaultConfig.property == 'min-height'){
                 $this.stop().animate({'min-height' : getHeight()});
             }else{
-                $this.stop().animate({'height' : getHeight()});
+                var detectFlexbox = $('.no-flexbox').size();
+                (detectFlexbox === 0)?$this.stop().animate({'height' : getHeight()}):$this.stop().css({'height' : getHeight()});
             }
         }
 
@@ -156,7 +187,8 @@ $(function(){
         $window.resize(function(){
             setHeight()
         })
-     
+        
+        
     }
 })
 /* ==========================================================================
