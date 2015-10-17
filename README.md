@@ -19,6 +19,22 @@ Customização do Framework MaterializeCSS
     });
 ```
 
+## Gallery Lightbox
+>Permite exibir galerias no formato lightbox com ou sem grupos
+
+```javascript
+    //Imagem individual
+    //<a href="ENDEREÇO_IMAGEM_LIGHTBOX.jpg" class="galeria"><img src="ENDEREÇO_THUMB.jpg"></a>
+
+    //Grupo de imagens
+    //<a href="ENDEREÇO_IMAGEM_LIGHTBOX1.jpg" class="galeria" data-group="NOME_GRUPO_EXIBIÇÃO"><img src="ENDEREÇO_THUMB1.jpg"></a>
+    //<a href="ENDEREÇO_IMAGEM_LIGHTBOX2.jpg" class="galeria" data-group="NOME_GRUPO_EXIBIÇÃO"><img src="ENDEREÇO_THUMB2.jpg"></a>
+    //<a href="ENDEREÇO_IMAGEM_LIGHTBOX3.jpg" class="galeria" data-group="NOME_GRUPO_EXIBIÇÃO"><img src="ENDEREÇO_THUMB3.jpg"></a>
+
+    $('.galeria').gallery();
+
+```
+
 ## AJAX SEND FORM
 >Envia formulários com AJAX, sem necessidade de recarregar a página
 >[Documentação AJAX](http://api.jquery.com/jquery.ajax/)

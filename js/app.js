@@ -1,5 +1,200 @@
 
 /* ==========================================================================
+   $GALLERY
+    //Galeria de imagens com lightbox e controles de seta 
+   ========================================================================== */
+
+$(function(){
+    $.fn.gallery = function(){
+        var $selector = this.selector;
+        var $totalItens = $($selector).size();
+        var list = [];
+        var listaFinal = [];
+        
+        
+        ////Adiciona ao body as divs necessárias para o funcionamento
+        if($('.sombra-bg-lht, .content-lht').size() == 0){
+            $('body').append('<div class="sombra-bg-lht p-fixed d-none"></div>');
+            $('body').append('<div class="content-lht p-fixed m-auto d-none"></div>');
+            $('body').append('<img width="120" height="120" src="imagens/loading-lht-default.svg" class="loading-lht-img p-fixed d-none">');
+            $('.content-lht').append('<img class="img-target p-relative" src="http://niteroiurgente.com/wp-content/uploads/2015/03/0-eclipse.jpg">');
+            $('.content-lht').append('<img data-action="prev" src="imagens/ic_keyboard_arrow_left_white_48dp_2x.png" class="left-arrow-lht hide c-pointer p-absolute action-lht-box">');
+            $('.content-lht').append('<img data-action="close" src="imagens/ic_clear_white_36dp_2x.png" class="close-lht action-lht-box c-pointer p-absolute">');
+            $('.content-lht').append('<img data-action="next" src="imagens/ic_keyboard_arrow_right_white_48dp_2x.png" class="right-arrow-lht hide c-pointer p-absolute action-lht-box">');
+            $('.content-lht').append('<div class="caption-lht-box p-absolute">Texto que deve aparecer na imagem</div>');
+        }
+        
+        var imgTarget = $('.img-target');
+        
+        ///Preparação do array das imagens
+        for(var i =0; i < $totalItens; i++){
+            var $this = $($selector+':eq('+i+')');
+            var dataGroup = $this.attr('data-group');
+            var group = (dataGroup!='' && dataGroup != null)? dataGroup: 'single';
+            var thumb = $this.find('img').attr('src');
+            var href = $this.attr('href');
+            
+            var list2 = [];
+            var list3 = [];
+            
+            list3['thumbs'] = thumb;
+            list3['href'] = href;
+            
+            list2[group] = list3;
+            list.push(list2);
+        
+        }
+        
+        $.each( list, function(key, value){
+            var grupo = Object.keys(list[key]);
+            listaFinal[grupo] = [];
+        })
+        
+        $.each( list, function(key, value){
+            var grupo = Object.keys(list[key]);
+            var temp = []
+            
+            //console.log(value[grupo])
+            
+            temp['href'] = value[grupo]['href'];
+            temp['thumbs'] = value[grupo]['thumbs'];
+            
+            listaFinal[grupo].push(temp)
+        })
+        
+        ////Auxiliares
+        
+        function centraliza(target, reference){
+            var larguraTela = $(reference).width();
+            var alturaTela = $(reference).height();
+            var larguraTarget = $(target).innerWidth();
+            var alturaTarget = $(target).innerHeight();
+            var left = ((larguraTela - larguraTarget)-12)/2;
+            var top = ((alturaTela - alturaTarget)-12)/2;
+            $(target).css({left:left, top:top})
+        }
+        
+        function closeLht(){
+            $('.content-lht').fadeOut(function(){
+               $('.sombra-bg-lht, .loading-lht-img').fadeOut();
+            });          
+        }
+        
+        function resize(target, reference){
+            var larguraTela = reference['largura']+12;
+            var alturaTela = reference['altura']+12;
+            
+            var topArrow = (alturaTela - 45)/2;
+            
+            $('.action-lht-box[data-action=prev], .action-lht-box[data-action=next]').css({top: topArrow})
+            
+            $(target).stop().css({width:larguraTela, height: alturaTela})
+            centraliza(target, window);
+        }
+        
+        function loadImage(src){
+            
+            $('.loading-lht-img').fadeIn();
+            imgTarget.attr('src', src).css('opacity',0).load(function(){
+                var dimensoes = [];
+                dimensoes['largura'] = this.width;
+                dimensoes['altura'] = this.height;
+                resize('.content-lht', dimensoes);
+                $('.loading-lht-img').fadeOut();
+            }).animate({opacity: 1});
+        }
+        
+        function prevnext(indice, group, totalLista){
+            indice = parseInt(indice);
+            var prev = (indice == 0)? (totalLista-1): (indice-1); 
+            var next = ((indice+1) == totalLista)? 0 : (indice+1); 
+            $('img.action-lht-box[data-action=prev]').attr({'data-indice': prev, 'data-group': group, 'data-total':totalLista});
+            $('img.action-lht-box[data-action=next]').attr({'data-indice': next, 'data-group': group, 'data-total':totalLista});
+        }
+        
+        
+        centraliza('.content-lht', window);
+        centraliza('.loading-lht-img', window);
+        //////Ações
+        this.on('click', function(){
+            var $this = $(this);
+            var dataGroup = $this.attr('data-group');
+            var group = (dataGroup!='' && dataGroup != null)? dataGroup: 'single';
+            var indice = $this.index();
+            $('.sombra-bg-lht').fadeIn(function(){
+               $('.content-lht').fadeIn() 
+            });
+            
+            var totalLista = $('a[data-group='+group+']').size();
+            
+            if(group != 'single' || totalLista > 1){
+                $('img.action-lht-box[data-action=prev], img.action-lht-box[data-action=next]').removeClass('hide');  
+                prevnext(indice, group, totalLista);
+            }else{
+                 $('img.action-lht-box[data-action=prev], img.action-lht-box[data-action=next]').addClass('hide');
+            }
+
+            loadImage(listaFinal[group][indice]['href']);
+
+            return false;
+        })
+        
+        $('.sombra-bg-lht').on('click', function(){closeLht()})
+        
+        $('.action-lht-box').on('click', function(){
+            var action = $(this).attr('data-action'); 
+            var indice = $(this).attr('data-indice');
+            var grupo = $(this).attr('data-group');
+            var totalLista = $(this).attr('data-total');
+
+            if(action == 'prev' ){
+                loadImage(listaFinal[grupo][indice]['href']);
+                prevnext(indice, grupo, totalLista);
+            }else if(action == 'next'){
+                loadImage(listaFinal[grupo][indice]['href']);
+                prevnext(indice, grupo, totalLista);
+            } else if(action=='close'){
+                closeLht()
+            }
+        })
+        
+        $(document).keyup(function(e){
+            if(1+1 == 2){
+                if(e.keyCode == 27){//esc
+                    closeLht();
+                }
+                if(e.keyCode == 37){//left
+                    var $prev = $('.action-lht-box[data-action=prev]');
+                    var action = $prev.attr('data-action'); 
+                    var indice = $prev.attr('data-indice');
+                    var grupo = $prev.attr('data-group');
+                    var totalLista = $prev.attr('data-total');                 
+                    loadImage(listaFinal[grupo][indice]['href']);
+                    prevnext(indice, grupo, totalLista);
+                }
+                if(e.keyCode == 39){//right
+                    var $next = $('.action-lht-box[data-action=next]');
+                    var action = $next.attr('data-action'); 
+                    var indice = $next.attr('data-indice');
+                    var grupo = $next.attr('data-group');
+                    var totalLista = $next.attr('data-total');                 
+                    loadImage(listaFinal[grupo][indice]['href']);
+                    prevnext(indice, grupo, totalLista);
+                }
+            }
+        })
+
+        /*
+        this.click(function(){
+            var indice = $(this).index();
+            var dataGroup = $this.attr('data-group');
+            var group = (dataGroup!='' && dataGroup != null)? dataGroup: 'single';
+            console.log(listaFinal[group][indice])
+        })*/
+    }
+})
+
+/* ==========================================================================
    $VERTICAL ALIGN for old browsers
     //Corrige o alinhamento vertical para browsers que não suporta flexbox, utilizando padding
    ========================================================================== */
